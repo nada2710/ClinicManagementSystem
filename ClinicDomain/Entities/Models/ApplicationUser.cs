@@ -1,4 +1,5 @@
 ﻿
+using ClinicDomain.Entities.Models;
 using ClinicDomain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -11,13 +12,13 @@ namespace Domain.Entities
 {
     public class ApplicationUser: IdentityUser
     {
-        public string Gender { get; set; }
+        public Gender gender { get; set; }
         public bool IsDeleted { get; set; }
         public TypeUser UserType { get; set; }
         public bool IsActive { get; set; } = false;
-        public bool IsEmailVerified { get; set; } = false;
         public string VerificationCode { get; set; }
         public DateTime? VerificationCodeExpiration { get; set; }
+        public List<RefreshToken>? refreshTokens { get; set; }
     }
     public class Doctor :ApplicationUser
     {

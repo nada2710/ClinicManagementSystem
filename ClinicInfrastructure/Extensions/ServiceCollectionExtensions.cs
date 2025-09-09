@@ -22,11 +22,9 @@ namespace ClinicInfrastructure.Extensions
         }
         private static void AddDbContextServices( this IServiceCollection services,IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("cs");
+            
             services.AddDbContext<ClinicDbContext>(options =>
-            {
-                options.UseSqlServer(connectionString);
-            });
+                                                  options.UseSqlServer(configuration.GetConnectionString("cs")));
         }
       
     }

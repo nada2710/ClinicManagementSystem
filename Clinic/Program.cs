@@ -1,5 +1,9 @@
 
 using ClinicAPI.Extensions;
+using ClinicInfrastructure.DbHelper.Context;
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic
 {
@@ -14,13 +18,18 @@ namespace Clinic
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddSwaggerGen();
+           
+           
+
             builder.Services.AddAllServices(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

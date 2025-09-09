@@ -4,6 +4,7 @@ using ClinicInfrastructure.DbHelper.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicInfrastructure.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    partial class ClinicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250908130835_addrefresh token")]
+    partial class addrefreshtoken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +44,17 @@ namespace ClinicInfrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEmailVerified")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -89,9 +99,6 @@ namespace ClinicInfrastructure.Migrations
 
                     b.Property<DateTime?>("VerificationCodeExpiration")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("gender")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -1,0 +1,21 @@
+﻿using ClinicDomain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClinicApplication.Dtos.AccountDto
+{
+    public class PendingUserData
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
+        public Gender gender { get; set; }
+        public string VerificationCode { get; set; }
+        public DateTime Expiration { get; set; }
+        public TypeUser UserType { get; set; }
+    }
+}
