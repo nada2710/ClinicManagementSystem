@@ -1,4 +1,6 @@
-﻿using ClinicInfrastructure.DbHelper.Context;
+﻿using ClinicDomain.Interfaces.IRepository;
+using ClinicInfrastructure.DbHelper.Context;
+using ClinicInfrastructure.Repositories.Repository;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,10 @@ namespace ClinicInfrastructure.Extensions
         {
             // Add DbContext services
             services.AddDbContextServices(configuration);
+            //register IUnitOfWork
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+
             return services;
         }
         private static void AddDbContextServices( this IServiceCollection services,IConfiguration configuration)
