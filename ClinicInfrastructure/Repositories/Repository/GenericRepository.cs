@@ -1,6 +1,8 @@
 ﻿using ClinicDomain.Entities.Base;
 using ClinicDomain.Interfaces.IRepository;
+using ClinicDomain.Interfaces.ISpecification;
 using ClinicInfrastructure.DbHelper.Context;
+using ClinicInfrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -47,6 +49,23 @@ namespace ClinicInfrastructure.Repositories.Repository
              * _entities..Attach(entity);
              *  _context.Entry(entity).State = EntityState.Modified;
              */
+        }
+        //Specification 
+        public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecification<TEntity, TKey> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+        public async Task<TEntity> GetByIdWithSpecAsync(ISpecification<TEntity, TKey> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+        public async Task<int> CountAsync(ISpecification<TEntity, TKey> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity,TKey> specification)
+        {
+            return SpecificationEvaluator<TEntity, TKey>.GetQuery(_entities.AsQueryable(), specification);
         }
     }
 }
